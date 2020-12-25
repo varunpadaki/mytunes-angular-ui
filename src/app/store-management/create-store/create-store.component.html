@@ -1,0 +1,125 @@
+<section class="mat-typography title-group">
+    <h2>Heading Goes Here</h2>
+    <mat-divider></mat-divider>
+  </section>
+   
+    <form [formGroup]="storeForm" (ngSubmit)="createStore()">
+        <div class="row mt-5" id="storeFormContent">
+            <div class="col-md-5">
+                <mat-card>
+                    <mat-card-content>
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Store Name</mat-label>
+                                    <input matInput type="text" class="form-control" formControlName="storename"  id="storename" name="storename" required>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('storename').valid && (storeForm.get('storename').touched || storeForm.get('storename').dirty)">
+                                        <mat-error *ngIf="storeForm.get('storename').errors?.required">
+                                            This field is required
+                                        </mat-error>
+
+                                        <mat-error *ngIf="storeForm.get('storename').errors?.invalidStorename">
+                                            Storename should be between 6-20 characters, Only alphabets and numbers are allowed.
+                                        </mat-error>
+
+                                        <mat-error *ngIf="storeForm.get('storename').errors?.duplicateStorename">
+                                            That storename is taken. Try another.
+                                        </mat-error>
+
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                    
+                            <div class="form-group">
+                                <mat-form-field [formGroup]='storeForm' class="full-width">
+                                    <mat-label>City</mat-label>
+                                    <mat-select formControlName="storeCity" placeholder="Store City" required>
+                                      <mat-option *ngFor="let city of cityArr" [disabled]="city.disabled" [value]="city.id">
+                                        {{ city.cityName }}
+                                      </mat-option>
+                                    </mat-select>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('storeCity').valid && (storeForm.get('storeCity').touched || storeForm.get('storeCity').dirty)">
+                                        <mat-error *ngIf="storeForm.get('storeCity').errors['required']">
+                                            This field is required
+                                        </mat-error>
+                                    </mat-error>
+                                  </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Store Timings</mat-label>
+                                    <input matInput type="text" class="form-control" formControlName="timings"  id="timings" name="timings" required>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('timings').valid && (storeForm.get('timings').touched || storeForm.get('timings').dirty)">
+                                        <mat-error *ngIf="storeForm.get('timings').errors['required']">
+                                            This field is required
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Capacity</mat-label>
+                                    <input matInput type="text" class="form-control" formControlName="capacity"  id="capacity" name="capacity" required>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('capacity').valid && (storeForm.get('capacity').touched || storeForm.get('capacity').dirty)">
+                                        <mat-error *ngIf="storeForm.get('capacity').errors['required']">
+                                            This field is required
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                    
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput type="email" class="form-control" formControlName="emailId"  id="emailId" name="emailId" required>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('emailId').valid && (storeForm.get('emailId').touched || storeForm.get('emailId').dirty)">
+                                        <mat-error *ngIf="storeForm.get('emailId').errors['required']">
+                                            This field is required
+                                        </mat-error>
+
+                                        <mat-error *ngIf="storeForm.get('emailId').errors['email']">
+                                            Invalid Email-ID. Please enter a valid Email-ID
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                    
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                    <mat-label>Phone number</mat-label>
+                                    <input matInput type="text" class="form-control" formControlName="phoneNumber"  id="phoneNumber" name="phoneNumber" maxlength="10" minlength="10" required>
+                                    <mat-error class="error-message" *ngIf="!storeForm.get('phoneNumber').valid && (storeForm.get('phoneNumber').touched || storeForm.get('phoneNumber').dirty)">
+                                        <mat-error *ngIf="storeForm.get('phoneNumber').errors['required']">
+                                            This field is required
+                                        </mat-error>
+                                        <mat-error *ngIf="storeForm.get('phoneNumber').errors['invalidPhoneNumber']">
+                                            Invalid phone number.Phone number should contain 10 digits and it should start with 6/7/8/9.
+                                        </mat-error>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <mat-form-field class="full-width">
+                                  <mat-label>Address</mat-label>
+                                  <textarea matInput formControlName="address" id="address" name="address" class="form-control" required></textarea>
+                                  <mat-error class="error-message" *ngIf="!storeForm.get('address').valid && (storeForm.get('address').touched || storeForm.get('address').dirty)">
+                                      <mat-error *ngIf="storeForm.get('address').errors['required']">
+                                          This field is required
+                                      </mat-error>
+                                  </mat-error>
+                              </mat-form-field>
+                          </div>
+
+                          <div class="form-group">
+                            <button class="submit-btn" color="primary" mat-raised-button [disabled]="!storeForm.valid" type="submit">Create Store</button>
+                        </div>
+                        <div class="form-group">
+                            <button class="submit-btn" color="primary" mat-raised-button [disabled]="!storeForm.valid" (click)="updateStore()">Update Store</button>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </form>

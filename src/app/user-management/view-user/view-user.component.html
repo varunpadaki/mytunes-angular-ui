@@ -1,0 +1,59 @@
+
+<div class="row mt-3" id="viewusers">
+    <div class="col-md-9">
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field *ngIf="dataSource.data.length">
+                    <mat-label>Filter</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Admin" #input>
+                </mat-form-field>
+                
+                <div class="mat-elevation-z8" *ngIf="dataSource.data.length">
+                    <table mat-table [dataSource]="dataSource" matSort>
+                        <div *ngFor="let col of columns">
+                            <ng-container *ngIf="col != 'edit' && col !='delete'" [matColumnDef]="col">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ columnObj[col] }} </th>
+                                <td mat-cell *matCellDef="let row"> {{ row[col] }} </td>
+                            </ng-container>
+                        </div>
+                        
+                        <ng-container matColumnDef="edit">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row">
+                                <a *ngIf="row['userAuthorities'][0]['roleName'] != 'India Administrator' && row['userAuthorities'][0]['roleName'] != 'Store Manager'" class="material-icons" (click)="editUser(row)">edit</a>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="delete">
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let row">
+                                <a *ngIf="row['userAuthorities'][0]['roleName'] != 'India Administrator' && row['userAuthorities'][0]['roleName'] != 'Store Manager'" class="material-icons" (click)="deleteUser(row)">delete</a>
+                            </td>
+                        </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+                  
+                      <!-- Row shown when there is no matching data. -->
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                      </tr> 
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+                  </div>
+
+                  <table *ngIf="!dataSource.data.length">
+                    <tr>
+                      <td style="text-align: center;" [attr.colspan]="columns.length">
+                        No Records Found!
+                      </td>
+                    </tr>
+                  </table>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+
+  
+
+
+

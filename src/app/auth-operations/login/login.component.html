@@ -1,0 +1,39 @@
+  <div class="row" id="loginFormContent">
+      <div class="col-md-5">
+  <h2>User Login</h2>
+  <mat-card>
+    <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="authenticateUser()">
+            <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" class="form-control" formControlName="username"  id="username" name="username" required>
+                <mat-error class="error-message" *ngIf="!loginForm.get('username').valid && (loginForm.get('username').touched || loginForm.get('username').dirty)">
+                    <mat-error *ngIf="loginForm.get('username').errors['required']">
+                        This field is required
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+            <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" class="form-control" formControlName="password"  id="password" name="password" required>
+                <mat-error class="error-message" *ngIf="!loginForm.get('password').valid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+                    <mat-error *ngIf="loginForm.get('password').errors['required']">
+                        This field is required
+                    </mat-error>
+                </mat-error>
+            </mat-form-field>
+            </div>
+            
+            <div class="form-group">
+                <button class="submit-btn" color="primary" mat-raised-button type="submit" [disabled]="!loginForm.valid">Login</button>
+                <a [routerLink]="['/auth/register']" class="btn btn-link">Register</a>
+            </div>
+        </form>
+    </mat-card-content>
+  </mat-card>
+  </div>
+  </div>

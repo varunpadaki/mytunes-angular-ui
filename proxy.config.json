@@ -1,0 +1,8 @@
+{
+    "/storemanagement/*": {
+    "target": "http://34.120.129.169",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+    }
+}
