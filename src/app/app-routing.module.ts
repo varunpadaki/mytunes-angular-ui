@@ -10,6 +10,7 @@ const routes: Route[] = [
   {path:'store',loadChildren:'../app/store-management/store-management.module#StoreManagementModule'},
   {path:'dashboard',loadChildren:'../app/dashboard/dashboard.module#DashboardModule',canActivate:[AuthguardService]},
   {path:'logout',component:LogoutComponent,canActivate:[AuthguardService]},
+  {path: '**',redirectTo: 'auth'}
 ];
 
 @NgModule({

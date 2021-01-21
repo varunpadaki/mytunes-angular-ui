@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
   jwtHelperService: JwtHelperService;
   httpClient: HttpClient;
   router: Router;
+  apiUrl = environment.apiUrl;
   
   private _statusChange$: Subject<Boolean>;
   public loginStatus$: Observable<any>;
@@ -37,7 +39,7 @@ export class AuthService {
    }
 
    public login(username: string,password: string): Observable<any>{
-    return this.httpClient.post<any>('/authmanagement/auth/login',{username: username, password: password});
+    return this.httpClient.post<any>(this.apiUrl+'/authmanagement/auth/login',{username: username, password: password});
    }
 
    public processFailureLoginResponse(errorResponse: any) {
